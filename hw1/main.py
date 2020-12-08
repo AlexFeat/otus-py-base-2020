@@ -92,8 +92,10 @@ def fib(num, **kwargs):
     '''
         Функция для вычисления числа Фибоначи через рекурсивный обход
     '''
-    if num < 2:
+    if num == 1:
         return 1
+    elif num == 0:
+        return 0
     return fib(num - 1, **kwargs) + fib(num - 2, **kwargs)
 
 
