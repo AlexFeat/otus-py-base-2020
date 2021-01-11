@@ -151,7 +151,6 @@ class Transport(ABC):
         else:
             raise Exception('Bad type: only Passenger or Baggage')
         return self
-        pass
 
     def refuel(self):
         if self._durability > 15 or success_or_fail(100, 15):
