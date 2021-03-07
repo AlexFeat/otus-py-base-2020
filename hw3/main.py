@@ -1,46 +1,71 @@
 #!/usr/bin/env python3
 
 import asyncio
-from datetime import datetime as dt
+from aiohttp import ClientSession
 from asyncpgsa import pg
-from sqlalchemy import (
-    Table,
-    MetaData,
-    Column,
-    Integer,
-    String,
-    DateTime,
-)
+import models
+import os
 
 
-print('Start!')
+async def fetch_json(session: ClientSession, url: str) -> dict:
+    """
+    :param session:
+    :param url:
+    :return:
+    """
+    async with session.get(url) as response:
+        return await response.json()
 
-metadata = MetaData()
 
-tbl_posts = Table(
-    '"post"."items"',
-    metadata,
-    Column("id", Integer, primary_key=True),
-    Column("user_id", Integer, nullable=False),
-    Column("title", String, nullable=False),
-    Column("body", String, nullable=False, default="", server_default=""),
-    Column("ts_modify", DateTime, nullable=False, default=dt.today().isoformat(), server_default=dt.today().isoformat()),
-)
+async def getuser(id=None):
+    """
+    :param id:
+    :return:
+    """
+    if id is None:
+        url = 'https://jsonplaceholder.typicode.com/users'
+    else:
+        url = f'https://jsonplaceholder.typicode.com/users/{id}/'
+
+    async with ClientSession() as session:
+        result = await fetch_json(session, url)
+
+
+async def getpost(id=None):
+    """
+    :param id:
+    :return:
+    """
+    if id is None:
+        url = 'https://jsonplaceholder.typicode.com/posts'
+    else:
+        url = f'https://jsonplaceholder.typicode.com/posts/{id}/'
+
+    async with ClientSession() as session:
+        result = await fetch_json(session, url)
 
 async def main():
-    conn = await pg.init(
-        'postgres://uulbmfbi:kwLmeN2XgDLI7kk0iEYrHJ2A5s6Y_up1@dumbo.db.elephantsql.com:5432/uulbmfbi',
+    tbl_user = models.tbl_user
+    tbl_post = models.tbl_post
+
+    await pg.init(
+        os.getenv('PG_CONN'),
         min_size=3,
         max_size=5,
     )
-    post_query = tbl_posts.select()
 
-    results = await pg.query(post_query)
-    for res in results:
-        print(res)
+    post_query = tbl_post.select()
+    async with pg.query(post_query) as cursor:
+        async for res in cursor:
+            print(res)
 
-    await conn.close()
+    user_query = tbl_user.select()
+    async with pg.query(user_query) as cursor:
+        async for res in cursor:
+            print(res)
+
     return 1
 
 if __name__ == '__main__':
-    print(asyncio.run(main()))
+    print('Start!')
+    asyncio.run(main())
