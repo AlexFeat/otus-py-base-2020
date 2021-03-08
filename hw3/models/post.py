@@ -24,7 +24,7 @@ tbl_post = Table(
         "ts_modify",
         DateTime,
         nullable=False,
-        default=dt.today().isoformat(),
-        server_default=dt.today().isoformat()),
+        default=dt.utcnow,
+    ),
     schema="post",
 )

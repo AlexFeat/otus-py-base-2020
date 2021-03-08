@@ -15,6 +15,7 @@ down_revision = 'a7ebe7a84955'
 branch_labels = None
 depends_on = None
 
+
 def upgrade():
     op.execute('CREATE SCHEMA "user"')
     op.create_table(
@@ -35,9 +36,10 @@ def upgrade():
         sa.Column('title', sa.VARCHAR(128), nullable=False),
         sa.Column('body', sa.Text),
         sa.PrimaryKeyConstraint('id'),
-        sa.ForeignKeyConstraint(['id'], ['user.items.id']),
+        sa.ForeignKeyConstraint(['user_id'], ['user.items.id']),
         schema='post',
     )
+
 
 def downgrade():
     op.drop_table('items', schema="post")

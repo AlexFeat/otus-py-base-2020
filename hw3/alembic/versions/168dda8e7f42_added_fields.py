@@ -7,7 +7,6 @@ Create Date: 2021-03-07 15:56:23.040803
 """
 from alembic import op
 import sqlalchemy as sa
-from datetime import datetime as dt
 
 # revision identifiers, used by Alembic.
 revision = '168dda8e7f42'
@@ -36,7 +35,7 @@ def upgrade():
         schema='post',
     )
 
+
 def downgrade():
     op.drop_column('items', 'ts_modify', schema='post')
     op.drop_column('items', 'ts_modify', schema='user')
-
