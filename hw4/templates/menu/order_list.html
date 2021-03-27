@@ -1,0 +1,37 @@
+{% extends 'wrappers/base.html' %}
+
+{% block body %}
+    <h3>Список заказов!</h3>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th colspan="1">№</th>
+                <th colspan="1">Дата заказа</th>
+                <th colspan="4">Содержимое заказа</th>
+                <th colspan="5">Адрес доставки</th>
+                <th colspan="1">Кол-во приборов</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        {% for o in orders | reverse %}
+            <tr>
+                <td colspan="1">{{ o.get('id') }}</td>
+                <td colspan="1">{{ o.get('time') }}</td>
+                <td colspan="4">
+                    <ul class="">
+                    {% for fid in o.get('food') %}
+                        <li class="">{{ menu.get(fid) }}</li>
+                    {% endfor %}
+                    </ul>
+                </td>
+                <td colspan="5">{{ o.get('address') }}</td>
+                <td colspan="1">{{ o.get('persons') }}</td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <br/>
+    <a href="{{ url_for('v_menu.menu_list') }}">Сделать ещё заказ</a>
+{% endblock %}
