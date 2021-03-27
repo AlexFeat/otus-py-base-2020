@@ -3,8 +3,7 @@
 import random
 from time import time
 from datetime import datetime
-from flask import Blueprint, render_template, request, redirect, url_for
-from werkzeug.exceptions import NotFound
+from flask import Blueprint, render_template, request
 
 v_menu = Blueprint("v_menu", __name__)
 
@@ -22,6 +21,7 @@ MENU = {
 }
 
 ORDERS = []
+
 
 @v_menu.route("/", methods=["GET"])
 def menu_list():
@@ -44,6 +44,7 @@ def menu_order_add():
 
     ORDERS.append(my_order)
     return render_template("menu/order_done.html", order=my_order)
+
 
 @v_menu.route("/order/list", methods=["GET"])
 def menu_order_list():
