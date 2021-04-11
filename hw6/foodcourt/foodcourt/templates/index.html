@@ -1,0 +1,7 @@
+{% extends 'wrappers/base.html' %}
+
+{% block body %}
+    <h1>Здравствуйте!</h1>
+    <p>Самые вкусные блюда только у нас! Ведь мы Столовая#1!</p>
+    <a href="{{ url_for('v_menu.menu_list') }}">Сделать заказ >>> </a>
+{% endblock %}

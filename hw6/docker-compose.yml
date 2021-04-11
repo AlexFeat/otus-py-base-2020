@@ -1,0 +1,31 @@
+version: "3.5"
+
+services:
+  pg:
+    image: postgres:12
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: foodcourt
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: paSswo0rd
+  foodcourt:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    ports:
+    - 5000:5000
+    command: python main.py
+    depends_on:
+      - pg
+  foodcourt-dev:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    ports:
+      - 5000:5000
+    volumes:
+      - ./foodcourt/foodcourt:/var/app
+    command: python app.py
+    depends_on:
+      - pg

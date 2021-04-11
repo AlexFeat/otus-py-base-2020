@@ -1,0 +1,10 @@
+{% extends 'wrappers/base.html' %}
+
+{% block body %}
+    <h3>Ваш заказ принят!</h3>
+    <p>Номер вашего заказа: {{ order.id }}</p>
+    <br/>
+    <a href="{{ url_for('v_menu.menu_list') }}"><<< Сделать ещё заказ</a> |
+    <a href="{{ url_for('v_menu.menu_order_list') }}">Посмотреть заказы >>></a>
+
+{% endblock %}
