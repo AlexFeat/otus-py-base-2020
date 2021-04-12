@@ -1,0 +1,30 @@
+{% extends 'wrappers/main.html' %}
+
+{% block body %}
+    <h2>Здравствуйте!</h2>
+    <h1>Самые вкусные блюда только у нас! Ведь мы Столовая#1!</h1>
+    <h4>Наше меню! Всегда всё свежее!</h4>
+    <div class="row">
+        <div class="col-sm-4 mb-3">
+            <a href="#">Уже хочу заказать!!</a>
+        </div>
+    </div>
+    <div class="row">
+    {% for f in foods %}
+        <div class="col-sm-4 mb-3" style="min-width: 325px;">
+            <div class="card">
+                <div class="card-header">
+                    <b>{{ f.title }}</b>
+                    <span class="badge rounded-pill bg-secondary">{{ f.cost }} руб.</span>
+                </div>
+                <div class="card-body" style="height: 92px">
+                    <p class="card-text">{{ f.description }}</p>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="btn btn-primary">Подробнее</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}
