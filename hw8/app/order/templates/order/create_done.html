@@ -1,0 +1,7 @@
+{% extends 'wrappers/main.html' %}
+
+{% block body %}
+    <h3>Спасибо за заказ!</h3>
+    <p>Ваш заказ #{{ order.id }} на сумму {{ order.total_cost }}</p>
+    <p><a href="{% url 'order-list' %}">Список заказов >></a></p>
+{% endblock %}

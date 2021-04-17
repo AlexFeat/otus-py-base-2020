@@ -1,0 +1,30 @@
+{% extends 'wrappers/main.html' %}
+
+{% block body %}
+    <table class="table table-hover">
+        <thead>
+            <th>ID</th>
+            <th>Дата заказа</th>
+            <th>Адрес доставки</th>
+            <th>Кол-во приборов</th>
+            <th>Заказ</th>
+            <th>Итог</th>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+        <tr>
+            <td>{{ order.id }}</td>
+            <td>{{ order.ts_create }}</td>
+            <td>{{ order.address }}</td>
+            <td>{{ order.count_persons }}</td>
+            <td><ul>
+            {% for f in order.food.all %}
+                <li>{{ f.title }}</li>
+            {% endfor %}
+            </ul></td>
+            <td>{{ order.total_cost }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

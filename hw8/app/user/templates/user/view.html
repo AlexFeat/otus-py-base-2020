@@ -1,0 +1,11 @@
+{% extends 'wrappers/main.html' %}
+
+{% block body %}
+    <h2>Здравствуй, {{ user.name }}!</h2>
+    <p>{{ user.email }}</p>
+
+    <form class="form" method="post" action="{% url 'user-logout' %}">
+        {% csrf_token %}
+        <button class="btn btn-primary">Выйти</button>
+    </form>
+{% endblock %}

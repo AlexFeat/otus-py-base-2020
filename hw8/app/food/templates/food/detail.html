@@ -1,0 +1,25 @@
+{% extends 'wrappers/main.html' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-sm-4 mb-3">
+            <a href="{% url 'order-add' %}">Уже хочу заказать!!</a>
+        </div>
+    </div>
+    <div class="card mb-3">
+        <div class="row g-0">
+            <div style="width: 320px">
+                <img src="https://loremflickr.com/320/240/food" />
+            </div>
+            <div class="col-sm-6">
+                <div class="card-body">
+                    <h5 class="card-title">{{ object.title }}</h5>
+                    <p class="card-text">{{ object.description }}</p>
+                    <p class="card-text"><small class="text-muted">Страна: {{ object.country.name }}</small></p>
+                    <p class="card-text"><small class="text-muted">Категория: {{ object.category.name }}</small></p>
+                    <p class="card-text"><small class="text-muted">Цена: {{ object.cost }}</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

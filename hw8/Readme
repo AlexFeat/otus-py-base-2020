@@ -1,0 +1,22 @@
+Для запуска проекта необходимо последовательно выполнить ряд простых действий:
+% docker-compose build
+% docker-compose up
+% docker-compose exec foodcourt-dev sh -c 'python manage.py migrate'
+% docker-compose exec foodcourt-dev sh -c 'python manage.py fill_food_db'
+
+Проект содержит 3 приложения
+* Food - основное для отображения списка товаров
+* User - отвечает за работу с пользователем (login/logout/profile/registrations)
+* Order - отвечает за создане и отображение заказов авторизованного пользователя
+
+Весь проект построен по принципу CBV с использованием django.form и django.views.generic.
+В чистом виде django.views.generic используется в food.views, в app user расширена модель и описаны get/post методы вручную.
+
+
+Памятка:
+python manage.py
+* makemigrations - создание файла миграции
+* migrate - выполнение миграции схемы
+* runserver - запуск dev сервера
+* createsuperuser - создание супер пользователя
+* startapp - создание приложение в проекте

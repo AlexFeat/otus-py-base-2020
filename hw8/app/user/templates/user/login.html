@@ -1,0 +1,13 @@
+{% extends 'wrappers/main.html' %}
+
+{% block body %}
+    <h2>Авторизоваться!</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Войти">
+    </form>
+    <hr/>
+    <a class="btn btn-info" href="{% url 'user-reg' %}">Регистрация</a>
+
+{% endblock %}

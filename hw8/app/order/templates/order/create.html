@@ -1,0 +1,31 @@
+{% extends 'wrappers/main.html' %}
+
+{% block body %}
+    <h3>Оформите заказ:</h3>
+    <form method="POST">
+    {% csrf_token %}
+        <div class="mb-3">
+        <label class="form-label"">Выберите блюда:</label>
+    {% for item in categories %}
+        <div class="mb-3 col-6">
+            <label class="lead" for="food-by_category-{{ item.category.id }}">{{ item.category.name }}</label>
+            <select class="form-control" id="food-by_category-{{ category.id }}" name="food_id">
+            {% for food in item.foods %}
+                <option value="{{ food.id }}">{{ food.title }} ({{ food.cost }})</option>
+            {% endfor %}
+            </select>
+        </div>
+    {% endfor %}
+        </div>
+        <div class="mb-3 col-3">
+            <label for="form-persons" class="form-label">Укажите количество приборов </label>
+            <input type="number" id="form-persons" class="form-control" name="persons" placeholder="1" value="1" required>
+        </div>
+        <div class="mb-3 col-6">
+            <label for="form-address" class="form-label">Укажите адрес доставки </label>
+            <input id="form-address" class="form-control" name="address" placeholder="Стамбул" value="" required>
+        </div>
+
+        <button class="btn btn-primary" class="form-control" type="submit" value="1">Отправить</button>
+    </form>
+{% endblock %}
