@@ -78,18 +78,18 @@ WSGI_APPLICATION = 'foodcourt.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': BASE_DIR / 'db.sqlite3',
-#    }
 DATABASES = {
     'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    },
+    'pg': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'foodcourt',
         'USER': 'project',
         'PASSWORD': 'pasSwo0rd',
         'HOST': 'pg',
-        'PORT': '5432'
+        'PORT': '5432',
     }
 }
 

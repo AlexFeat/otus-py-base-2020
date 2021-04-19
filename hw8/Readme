@@ -12,6 +12,8 @@
 Весь проект построен по принципу CBV с использованием django.form и django.views.generic.
 В чистом виде django.views.generic используется в food.views, в app user расширена модель и описаны get/post методы вручную.
 
+Добавлены тесты для приложений food и user.
+% python manage.py test
 
 Памятка:
 python manage.py

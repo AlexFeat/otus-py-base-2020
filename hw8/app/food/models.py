@@ -7,8 +7,8 @@ class Country(models.Model):
     def __str__(self):
         return f'{self.id} ({self.name})'
 
-    def foods(self):
-        return Food.objects.filter(category=self).all()
+    def food_count(self):
+        return Food.objects.filter(country=self).all().count()
 
 
 class Category(models.Model):
@@ -16,6 +16,9 @@ class Category(models.Model):
 
     def __str__(self):
         return f'{self.id} ({self.name})'
+
+    def food_count(self):
+        return Food.objects.filter(category=self).all().count()
 
 
 class Food(models.Model):
