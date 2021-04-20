@@ -1,5 +1,7 @@
 from django.test import TestCase
+from django.urls import reverse
 from .models import User
+from .views import UserLogin, UserView, UserLogout
 from faker import Faker
 fake = Faker()
 
@@ -15,19 +17,19 @@ class TestUserView(TestCase):
         )
 
     def test_login(self):
-        self.client.post('/login/', {'email': self.user.email, 'password': self.password}, follow=True)
+        self.client.post(reverse('user-login'), {'email': self.user.email, 'password': self.password}, follow=True)
         self.assertIn('fcsid', self.client.cookies)
-        response = self.client.get('/me/')
+        response = self.client.get(reverse('user-me'))
         self.assertIn(self.user.email, response.content.decode(encoding='utf-8'))
 
     def test_logout(self):
-        self.client.post('/login/', {'email': self.user.email, 'password': self.password}, follow=True)
-        self.client.post('/logout/', {}, follow=True)
-        response = self.client.get('/me/')
+        self.client.post(reverse('user-login'), {'email': self.user.email, 'password': self.password}, follow=True)
+        self.client.post(reverse('user-logout'), {}, follow=True)
+        response = self.client.get(reverse('user-me'))
         self.assertEqual(response.status_code, 302)
 
     def test_context(self):
-        self.client.post('/login/', {'email': self.user.email, 'password': self.password}, follow=True)
-        response = self.client.get('/me/')
+        self.client.post(reverse('user-login'), {'email': self.user.email, 'password': self.password}, follow=True)
+        response = self.client.get(reverse('user-me'))
         self.assertIn('user', response.context)
         self.assertEqual(response.context['user'].id, self.user.id)

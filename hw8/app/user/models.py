@@ -2,7 +2,8 @@ import hashlib
 import uuid
 from django.db import models
 from django.utils import timezone
-from datetime import datetime, timedelta
+from datetime import timedelta
+
 
 SALT = '_SaLt'
 
@@ -32,7 +33,7 @@ class User(models.Model):
         Метод класса для вычисления даты окончания сессии
         :return: str date
         """
-        return str(datetime.now() + timedelta(hours=1))
+        return str(timezone.now() + timedelta(hours=1))
 
     @classmethod
     def salt_password(cls, password) -> str:
@@ -56,14 +57,6 @@ class User(models.Model):
         user = User.objects.filter(auth_token=token).first()
         if user is None:
             return None
-        expired_date = datetime(
-            year=user.auth_expired.year,
-            month=user.auth_expired.month,
-            day=user.auth_expired.day,
-            hour=user.auth_expired.hour,
-            minute=user.auth_expired.minute,
-            second=user.auth_expired.second
-        )
-        if user is None or datetime.now() > expired_date:
+        if user is None or timezone.now().timestamp() > user.auth_expired.timestamp():
             return None
         return user
